@@ -1,0 +1,104 @@
+{
+  "revision_id": "b73aaa5585b9020c8a166f2e81868d80591f64d192454eb18082ca5f05b0c9a0",
+  "name": "myapp",
+  "run_list": [
+    "recipe[myapp::default]"
+  ],
+  "included_policy_locks": [
+
+  ],
+  "cookbook_locks": {
+    "base": {
+      "version": "1.0.0",
+      "identifier": "56c4b8e7ff14bfa54d8fee1dff5511b5e5b8e8bf",
+      "dotted_decimal_identifier": "24423146442396863.46528651727863637.19472940853439",
+      "source": "../cookbooks/base",
+      "cache_key": null,
+      "scm_info": {
+        "scm": "git",
+        "remote": "git@github.com:VishakArudhra/chef-infra.git",
+        "revision": "94a9656cd24b4b586da337dea4947bcf3d313354",
+        "working_tree_clean": false,
+        "published": true,
+        "synchronized_remote_branches": [
+          "origin/main"
+        ]
+      },
+      "source_options": {
+        "path": "../cookbooks/base"
+      }
+    },
+    "myapp": {
+      "version": "1.0.0",
+      "identifier": "fa2b35a72edf66104aa8d289e3b8ac7ee99ebf84",
+      "dotted_decimal_identifier": "70416253615791974.4585688574583736.189661085351812",
+      "source": "../cookbooks/myapp",
+      "cache_key": null,
+      "scm_info": {
+        "scm": "git",
+        "remote": "git@github.com:VishakArudhra/chef-infra.git",
+        "revision": "94a9656cd24b4b586da337dea4947bcf3d313354",
+        "working_tree_clean": false,
+        "published": true,
+        "synchronized_remote_branches": [
+          "origin/main"
+        ]
+      },
+      "source_options": {
+        "path": "../cookbooks/myapp"
+      }
+    }
+  },
+  "default_attributes": {
+    "base": {
+      "deploy_user": {
+        "authorized_keys": [
+          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPZz2/1WmY3+3kB3zBBEUaKp0YsSlMXTpusQYJ+lLHzr jenkins-deploy"
+        ]
+      }
+    },
+    "dev": {
+      "myapp": {
+        "greeting": "Hello from DEV",
+        "log_level": "DEBUG"
+      }
+    },
+    "uat": {
+      "myapp": {
+        "greeting": "Hello from UAT"
+      }
+    },
+    "prod": {
+      "myapp": {
+        "greeting": "Hello from PROD",
+        "log_level": "WARN"
+      }
+    }
+  },
+  "override_attributes": {
+
+  },
+  "solution_dependencies": {
+    "Policyfile": [
+      [
+        "base",
+        ">= 0.0.0"
+      ],
+      [
+        "myapp",
+        ">= 0.0.0"
+      ]
+    ],
+    "dependencies": {
+      "base (1.0.0)": [
+
+      ],
+      "myapp (1.0.0)": [
+        [
+          "base",
+          "~> 1.0"
+        ]
+      ]
+    }
+  }
+}
