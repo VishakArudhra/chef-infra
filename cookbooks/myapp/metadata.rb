@@ -1,6 +1,6 @@
 name             'myapp'
-maintainer       'Shruthi'
-maintainer_email 'you@example.com'
+maintainer 'Vishak'
+maintainer_email 'vishak@lab.internal'
 license          'Apache-2.0'
 description      'Deploys the myapp Spring Boot service (Java + systemd) on top of the base cookbook'
 version          '1.0.0'

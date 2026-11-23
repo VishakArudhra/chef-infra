@@ -16,8 +16,8 @@ env_name = node.policy_group || 'local' # dev / uat / prod (or "local" in Test K
 # ---------------------------------------------------------------------------
 release = begin
   data_bag_item(app['release_data_bag'], "myapp_#{env_name}")
-rescue Net::HTTPClientException, Chef::Exceptions::InvalidDataBagPath, Chef::Exceptions::InvalidDataBagItemID
-  nil
+          rescue Net::HTTPClientException, Chef::Exceptions::InvalidDataBagPath, Chef::Exceptions::InvalidDataBagItemID
+            nil
 end
 
 if release
@@ -38,9 +38,9 @@ end
 # ---------------------------------------------------------------------------
 secrets = begin
   data_bag_item(app['secrets_data_bag'], 'myapp')
-rescue Net::HTTPClientException, Chef::Exceptions::InvalidDataBagPath, Chef::Exceptions::InvalidDataBagItemID
-  raise 'Missing encrypted data bag item secrets/myapp - see walkthrough Part 5' if env_name != 'local'
-  { 'api_key' => 'kitchen-test-key' }
+          rescue Net::HTTPClientException, Chef::Exceptions::InvalidDataBagPath, Chef::Exceptions::InvalidDataBagItemID
+            raise 'Missing encrypted data bag item secrets/myapp - see walkthrough Part 5' if env_name != 'local'
+            { 'api_key' => 'kitchen-test-key' }
 end
 
 # ---------------------------------------------------------------------------
@@ -93,13 +93,13 @@ template "#{base_dir}/shared/application.properties" do
   mode '0640'        # readable by the app, not by other users
   sensitive true     # keep the api key out of Chef's diff output and logs
   variables(
-    port:        app['port'],
+    port: app['port'],
     environment: env_name,
-    version:     version || 'none',
-    greeting:    app['greeting'],
-    log_level:   app['log_level'],
-    log_dir:     "#{base_dir}/logs",
-    api_key:     secrets['api_key']
+    version: version || 'none',
+    greeting: app['greeting'],
+    log_level: app['log_level'],
+    log_dir: "#{base_dir}/logs",
+    api_key: secrets['api_key']
   )
   notifies :restart, 'service[myapp]', :delayed if version
 end
