@@ -24,8 +24,8 @@ pipeline {
 
     stage('Unit tests (ChefSpec)') {
       steps {
-        dir('cookbooks/base')  { sh 'cinc exec rspec' }
-        dir('cookbooks/myapp') { sh 'cinc exec rspec' }
+        sh "rm -rf cookbooks/*@tmp && cd cookbooks/base && cinc exec rspec"
+        sh "rm -rf cookbooks/*@tmp && cd cookbooks/myapp && cinc exec rspec"
       }
     }
 
