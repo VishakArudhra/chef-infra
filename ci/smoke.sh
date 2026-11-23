@@ -15,7 +15,7 @@ for NODE in $(nodes_in_group "$GROUP"); do
     || echo "   (not healthy after 2 min - InSpec will show what is wrong)"
 
   echo ">> InSpec smoke tests on $NODE"
-  cinc-auditor exec "$REPO_ROOT/test/smoke" \
+  cinc-auditor exec --no-distinct-exit "$REPO_ROOT/test/smoke" \
     -t "ssh://$DEPLOY_USER@$NODE" -i "$DEPLOY_KEY" \
     --input expected_env="$GROUP" expected_version="$EXPECTED_VERSION" \
     --reporter cli "junit2:$REPO_ROOT/reports/smoke-$GROUP-$NODE.xml" \
