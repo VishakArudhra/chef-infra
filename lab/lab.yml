@@ -1,0 +1,46 @@
+# ---------------------------------------------------------------
+# Lab settings: edit THIS file before `vagrant up` (walkthrough Part 2).
+# ---------------------------------------------------------------
+
+# Exact name of the Windows Wi-Fi adapter VirtualBox should bridge to.
+# Find it with:  "C:\Program Files\Oracle\VirtualBox\VBoxManage.exe" list bridgedifs
+# and copy the "Name:" line exactly.
+bridge_adapter: "Realtek 8821CE Wireless LAN 802.11ac PCI-E NIC"
+
+# First three parts of your home Wi-Fi network (from `ipconfig` on Windows,
+# e.g. IPv4 Address 192.168.1.23  ->  "192.168.1").
+subnet: "192.168.1"
+
+# DNS-style domain used inside the lab. ".internal" is reserved for private use.
+domain: "lab.internal"
+
+box: "bento/ubuntu-24.04"
+
+# Last octet of each VM's IP. Pick numbers your router's DHCP pool won't hand out
+# (ping them first: no reply = probably free).
+vms:
+  chef-server:
+    ip: 240
+    memory: 4096
+    cpus: 2
+    role: chef-server
+  jenkins:
+    ip: 241
+    memory: 4096
+    cpus: 2
+    role: jenkins
+  app01:
+    ip: 251
+    memory: 1024
+    cpus: 1
+    role: node
+  app02:
+    ip: 252
+    memory: 1024
+    cpus: 1
+    role: node
+  app03:
+    ip: 253
+    memory: 1024
+    cpus: 1
+    role: node

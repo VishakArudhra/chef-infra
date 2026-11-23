@@ -1,0 +1,13 @@
+# Managed by Chef (cookbook myapp). Local edits will be reverted.
+server.port=<%= @port %>
+
+app.environment=<%= @environment %>
+app.deployed-version=<%= @version %>
+app.greeting=<%= @greeting %>
+app.api-key=<%= @api_key %>
+
+logging.level.root=<%= @log_level %>
+logging.file.name=<%= @log_dir %>/myapp.log
+
+management.endpoints.web.exposure.include=health,info
+management.endpoint.health.probes.enabled=true

@@ -1,0 +1,9 @@
+# Managed by Chef (cookbook base). Local edits will be reverted.
+PermitRootLogin <%= @permit_root_login %>
+PasswordAuthentication <%= @password_authentication %>
+KbdInteractiveAuthentication no
+MaxAuthTries <%= @max_auth_tries %>
+X11Forwarding <%= @x11_forwarding %>
+ClientAliveInterval 300
+ClientAliveCountMax 2
+Banner /etc/issue.net

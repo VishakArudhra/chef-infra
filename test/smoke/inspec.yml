@@ -1,0 +1,15 @@
+name: myapp-smoke
+title: myapp post-deploy smoke tests
+summary: Run by Jenkins over SSH against the real nodes after every converge.
+version: 1.0.0
+supports:
+  - platform-family: debian
+inputs:
+  - name: expected_env
+    description: Policy group the node belongs to (dev/uat/prod)
+    value: ''
+  - name: expected_version
+    description: App version that should be running ('' = don't check)
+    value: ''
+  - name: app_port
+    value: 8080

@@ -1,0 +1,56 @@
+# -*- mode: ruby -*-
+# On-prem lab: 1 Chef (Cinc) Infra Server, 1 Jenkins, 3 application nodes.
+# Runs on the Windows laptop with VirtualBox. Each VM gets a second network card
+# bridged to your Wi-Fi, with a static IP, so your Mac can reach it directly.
+#
+#   vagrant up                 # create everything (first run ~30-40 min)
+#   vagrant up chef-server     # or one VM at a time
+#   vagrant halt               # stop all VMs (keeps them)
+#   vagrant status
+require 'yaml'
+
+LAB    = YAML.load_file(File.join(__dir__, 'lab.yml'))
+DOMAIN = LAB['domain']
+SUBNET = LAB['subnet']
+
+def ip_of(cfg)
+  "#{SUBNET}.#{cfg['ip']}"
+end
+
+# "10.0.0.5 chef-server.lab.internal chef-server" lines for every VM -> /etc/hosts
+HOSTS = LAB['vms'].map { |name, cfg| "#{ip_of(cfg)} #{name}.#{DOMAIN} #{name}" }.join("\n")
+
+# Every public key you drop into lab/keys/*.pub is allowed to SSH in as `vagrant`.
+PUBKEYS = Dir.glob(File.join(__dir__, 'keys', '*.pub')).map { |f| File.read(f).strip }.join("\n")
+
+Vagrant.configure('2') do |config|
+  config.vm.box = LAB['box']
+  config.vm.synced_folder '.', '/vagrant', disabled: true # not needed; avoids Guest Additions issues
+  config.vm.boot_timeout = 600
+
+  LAB['vms'].each do |name, cfg|
+    config.vm.define name do |node|
+      node.vm.hostname = "#{name}.#{DOMAIN}"
+      node.vm.network 'public_network', ip: ip_of(cfg), bridge: LAB['bridge_adapter']
+
+      node.vm.provider 'virtualbox' do |vb|
+        vb.name   = "chef-lab-#{name}"
+        vb.memory = cfg['memory']
+        vb.cpus   = cfg['cpus']
+        vb.customize ['modifyvm', :id, '--audio-driver', 'none']
+      end
+
+      swap_mb = cfg['memory'] >= 4096 ? 2048 : 1024
+      node.vm.provision 'common', type: 'shell', path: 'scripts/common.sh',
+                        env: { 'LAB_HOSTS' => HOSTS, 'LAB_PUBKEYS' => PUBKEYS, 'SWAP_MB' => swap_mb.to_s }
+
+      case cfg['role']
+      when 'chef-server'
+        node.vm.provision 'chef-server', type: 'shell', path: 'scripts/chef-server.sh',
+                          env: { 'CHEF_FQDN' => "#{name}.#{DOMAIN}" }
+      when 'jenkins'
+        node.vm.provision 'jenkins', type: 'shell', path: 'scripts/jenkins.sh'
+      end
+    end
+  end
+end

@@ -1,0 +1,8 @@
+{
+  "_comment": "Release manifest: the cookbook versions approved for promotion. The pipeline refuses to push a policy whose lock contains anything else (ci/check_versions.py). Constraints: exact ('1.0.0'), '>= 1.0.0', or '~> 1.0'.",
+  "policy": "myapp",
+  "cookbooks": {
+    "base": "1.0.0",
+    "myapp": "1.0.0"
+  }
+}

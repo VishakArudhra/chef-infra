@@ -1,0 +1,16 @@
+# --- secrets: never commit ---
+.chef/*.pem
+.chef/encrypted_data_bag_secret
+.chef/trusted_certs/*
+!.chef/trusted_certs/.gitkeep
+data_bags/secrets/*.json
+!data_bags/secrets/*.example.json
+*.pem
+
+# --- generated ---
+.kitchen/
+.kitchen.local.yml
+reports/
+lab/.vagrant/
+.DS_Store
+__pycache__/

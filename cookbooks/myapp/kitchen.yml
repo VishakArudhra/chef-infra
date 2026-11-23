@@ -1,0 +1,48 @@
+# Test Kitchen: converge the REAL production policy in a throwaway container,
+# then verify the end state with InSpec.
+#   kitchen list | kitchen converge | kitchen verify | kitchen destroy | kitchen test
+# Needs Docker (runs on the Jenkins VM; your 8 GB Mac doesn't need it).
+---
+driver:
+  name: dokken
+  privileged: true            # lets systemd run inside the container
+  chef_image: cincproject/cinc
+  chef_version: 19
+
+transport:
+  name: dokken
+
+provisioner:
+  name: dokken
+  product_name: cinc
+  chef_binary: /opt/cinc/bin/cinc-client
+  policyfile_path: ../../policyfiles/myapp.rb
+  data_bags_path: test/fixtures/data_bags
+
+verifier:
+  name: inspec
+
+platforms:
+  - name: ubuntu-24.04
+    driver:
+      image: dokken/ubuntu-24.04
+      pid_one_command: /bin/systemd
+      intermediate_instructions:
+        - RUN /usr/bin/apt-get update
+
+suites:
+  - name: default
+    verifier:
+      inspec_tests:
+        - test/integration/default
+    attributes:
+      base:
+        firewall:
+          enabled: false        # no iptables inside a container
+        sysctl:
+          enabled: false        # kernel settings belong to the host, not the container
+        chef_client_timer:
+          enabled: false        # don't schedule runs in a test container
+        deploy_user:
+          authorized_keys:
+            - "ssh-ed25519 AAAAKITCHENTEST kitchen"

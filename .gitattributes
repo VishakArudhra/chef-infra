@@ -1,0 +1,8 @@
+# Scripts run inside Linux VMs: keep LF line endings even when cloned on Windows.
+*.sh        text eol=lf
+*.rb        text eol=lf
+*.erb       text eol=lf
+*.yml       text eol=lf
+*.json      text eol=lf
+Vagrantfile text eol=lf
+Jenkinsfile text eol=lf
