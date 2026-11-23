@@ -17,7 +17,7 @@ LOG="$(mktemp)"
 knife ssh "policy_group:${GROUP} AND policy_name:${POLICY_NAME}" \
   "sudo cinc-client --no-color" \
   -c "$KNIFE_CFG" -x "$DEPLOY_USER" -i "$DEPLOY_KEY" -a hostname \
-  --ssh-verify-host-key accept_new | tee "$LOG"
+  --no-host-key-verify | tee "$LOG"
 
 # knife ssh doesn't always return non-zero when one node fails, so check the output too.
 if grep -Eq "FATAL:|Cinc Client failed|Chef Infra Client failed|exited with status [1-9]" "$LOG"; then
