@@ -1,4 +1,4 @@
-name             'base'
+name 'base'
 maintainer 'Vishak'
 maintainer_email 'vishak@lab.internal'
 license          'Apache-2.0'

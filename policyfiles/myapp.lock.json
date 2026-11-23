@@ -1,5 +1,5 @@
 {
-  "revision_id": "55b9789f4888e562569d3bc10c4f8bd059add2d209243422b432f64eee39e86f",
+  "revision_id": "46fa3dab2385ee60383580b816ce70c834c43b2795e106be7c3667c6126ec8d8",
   "name": "myapp",
   "run_list": [
     "recipe[myapp::default]"
@@ -10,14 +10,14 @@
   "cookbook_locks": {
     "base": {
       "version": "1.0.0",
-      "identifier": "cb5ed1441dd2e4caa2fa4ae6ef29578546f8e131",
-      "dotted_decimal_identifier": "57243673156244196.57037141177724713.96229932982577",
+      "identifier": "37dce5972fe400ea6e1c6cc5363e5baa0f9bf079",
+      "dotted_decimal_identifier": "15724002361205760.65986212913296958.100785964445817",
       "source": "../cookbooks/base",
       "cache_key": null,
       "scm_info": {
         "scm": "git",
         "remote": "git@github.com:VishakArudhra/chef-infra.git",
-        "revision": "3780955ac35fd859c9c2a0332c66204328988ecc",
+        "revision": "313004cf0d88651b4833cbde2fa388b7753def9c",
         "working_tree_clean": false,
         "published": true,
         "synchronized_remote_branches": [
@@ -30,14 +30,14 @@
     },
     "myapp": {
       "version": "1.0.0",
-      "identifier": "0314542d807f9f7fa9e816e3341c39cb6f2aedb4",
-      "dotted_decimal_identifier": "866776703336351.35934136323748892.63545906228660",
+      "identifier": "ac754d993397489e606af72c838c7ea2ee89f911",
+      "dotted_decimal_identifier": "48542672137459528.44579058849973132.139238251821329",
       "source": "../cookbooks/myapp",
       "cache_key": null,
       "scm_info": {
         "scm": "git",
         "remote": "git@github.com:VishakArudhra/chef-infra.git",
-        "revision": "3780955ac35fd859c9c2a0332c66204328988ecc",
+        "revision": "313004cf0d88651b4833cbde2fa388b7753def9c",
         "working_tree_clean": false,
         "published": true,
         "synchronized_remote_branches": [
